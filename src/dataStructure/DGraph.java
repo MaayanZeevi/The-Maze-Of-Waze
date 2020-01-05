@@ -10,9 +10,8 @@ import java.util.LinkedList;
 public class DGraph implements graph, Serializable{
 
 
-	public HashMap <Integer,node_data> verticesMap;
+	private HashMap <Integer,node_data> verticesMap;
 	private HashMap <Integer,HashMap<Integer,edge_data>> edgeMap;
-	private int NodeCounter;
 	private int edgesCounter;
 	int mc;
 
@@ -20,9 +19,8 @@ public class DGraph implements graph, Serializable{
 	public DGraph() {
 		verticesMap = new HashMap <Integer,node_data>();
 		edgeMap = new HashMap <Integer,HashMap<Integer,edge_data>>();
-		NodeCounter = 0;
 		edgesCounter = 0;
-		mc=0;
+		mc = 0;
 	}
 
 
@@ -57,16 +55,17 @@ public class DGraph implements graph, Serializable{
 
 	@Override
 	public void connect(int src, int dest, double w) {
-		node_data a = getNode(src);
-		node_data b = getNode(dest);
-		if(a != null && b!=null) {
-			EdgeData e = new EdgeData(this.verticesMap.get(src), this.verticesMap.get(dest), w);
-			this.edgeMap.get(src).put(dest,e);
+		node_data srcNode = this.getNode(src);
+		node_data destNode = this.getNode(dest);
+		if(srcNode != null && destNode!=null) {
+			if(!this.edgeMap.containsKey(src)) { //first edge
+				edgeMap.put(src, new HashMap<Integer,edge_data>());
+			}
+			edge_data edgeData = new EdgeData(srcNode, destNode, w);
+			this.edgeMap.get(src).put(dest, edgeData);
 			this.edgesCounter++;
 			this.mc++;
 		}
-
-
 	}
 
 
@@ -111,7 +110,7 @@ public class DGraph implements graph, Serializable{
 
 	@Override
 	public int nodeSize() {
-		return this.NodeCounter;
+		return this.verticesMap.size();
 	}
 
 	@Override

@@ -9,28 +9,24 @@ public class Graph_Algo implements graph_algorithms{
 	private graph _graph;
 	
 	//constructors
-	//empty constructor
-	public Graph_Algo() {
-		
-	}
-	//this constructor doing init from another graph
 	public Graph_Algo(graph g) {
-		_graph =new DGraph();
 		this.init(g);
 	}
-	
+	@Override
 	public void init(graph g) {
 		_graph =  g;	
 	}
-
+	
+	@Override
 	public graph copy() {
 		graph copy=(graph) new DGraph();
 		Collection<node_data> nodes= _graph.getV();
 		for ( node_data node_data: nodes) {
-			copy.addNode(node_data);
+			node_data temp= new NodeData(node_data.getKey(), node_data.getLocation());
+			copy.addNode(temp);
 			Collection<edge_data> edges= _graph.getE(node_data.getKey());
 			for (edge_data edge_data : edges) {
-				int src= edge_data.getSrc();
+				int src= node_data.getKey();
 				int dest=edge_data.getDest();
 				double weight= edge_data.getWeight();
 				copy.connect(src, dest, weight);
@@ -40,7 +36,7 @@ public class Graph_Algo implements graph_algorithms{
 		return copy;
 	}
 
-	
+	@Override
 	public void init(String file_name) {
 		
 		try
@@ -65,7 +61,7 @@ public class Graph_Algo implements graph_algorithms{
 		}
 	}
 
-	
+	@Override
 	public void save(String file_name) {
 		
 		try{    
@@ -94,7 +90,7 @@ public class Graph_Algo implements graph_algorithms{
 		return true;
 	}
 
-
+	@Override
 	public double shortestPathDist(int src, int dest) {
 		if(!this.isConnected())return -1.0;
 		Collection <node_data> nodes= _graph.getV();
@@ -141,7 +137,7 @@ public class Graph_Algo implements graph_algorithms{
 		return ans;
 	}
 		
-	
+	@Override
 	public List<node_data> shortestPath(int src, int dest) {
 		if(!this.isConnected())return null;
 		Collection <node_data> nodes= _graph.getV();
@@ -194,10 +190,12 @@ public class Graph_Algo implements graph_algorithms{
 		return false;
 	}
 	
+	@Override
 	public List<node_data> TSP(List<Integer> targets) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
 	public static void main(String[]args) {
 		graph graphConnected= new DGraph();
 		NodeData n1= new NodeData(1,5,10);

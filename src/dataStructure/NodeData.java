@@ -26,6 +26,10 @@ public class NodeData implements node_data, Serializable {
 		this.location = new Point3D (x,y);
 	}
 	
+	public NodeData(int key, Point3D location) {
+		this.key= key;
+		this.location=location;
+	}
 	
 	public int getKey() {
 		return this.key;
