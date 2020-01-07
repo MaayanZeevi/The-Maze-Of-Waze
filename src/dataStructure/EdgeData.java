@@ -71,5 +71,8 @@ public class EdgeData implements edge_data, Serializable {
 		this.tag = t;
 	}
 	
-
+	@Override
+	public String toString() {
+		return "src:"+this.src + " ,dest:" +this.dest;
+	}
 }

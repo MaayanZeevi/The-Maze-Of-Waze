@@ -92,9 +92,9 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public double shortestPathDist(int src, int dest) {
-		if(!isConnected2Nodes(_graph.getNode(src), _graph.getNode(dest))) {
-			return Double.POSITIVE_INFINITY;
-		}
+//		if(!isConnected2Nodes(_graph.getNode(src), _graph.getNode(dest))) {
+//			return Double.POSITIVE_INFINITY;
+//		}
 		Collection <node_data> nodes= _graph.getV();
 		for (node_data currNode : nodes) {
 			currNode.setTag(0);
@@ -103,6 +103,7 @@ public class Graph_Algo implements graph_algorithms{
 		node_data srcNode= _graph.getNode(src);
 		srcNode.setWeight(0);
 		shortestPathDistRe(src);
+		System.out.println("bla");
 		double ans= _graph.getNode(dest).getWeight();
 		
 		return ans;
@@ -157,12 +158,15 @@ public class Graph_Algo implements graph_algorithms{
 		Collection<edge_data> edges= _graph.getE(src);
 		srcNode.setTag(1);
 		for (edge_data currEdge : edges) {
+			System.out.println(currEdge);
 			double curWeight= srcNode.getWeight()+currEdge.getWeight();
 			node_data nextNode= _graph.getNode(currEdge.getDest());
+			System.out.println(nextNode);
 			if(nextNode.getWeight()>curWeight) {
 				nextNode.setWeight(curWeight);
 				nextNode.setInfo(srcNode.getInfo() + "," + nextNode.getKey());
 			}
+			System.out.println(nextNode+ " weight:"+ nextNode.getWeight());
 		}
 		int nextKey= smallestWeight();
 		if(nextKey==-1) return;
@@ -170,7 +174,7 @@ public class Graph_Algo implements graph_algorithms{
 	}
 	
 	private boolean isConnected2Nodes(node_data src, node_data des) {
-		if(_graph.getE(src.getKey()) == null) {
+		if(_graph.getE(src.getKey())==null) {
 			return false;
 		}
 		
@@ -194,13 +198,11 @@ public class Graph_Algo implements graph_algorithms{
 		if(src.getKey()==des.getKey()) return true;
 		if(src.getTag()==1) return false;
 		
-		if(_graph.getE(src.getKey()) != null) {
-			Collection<edge_data> edges = _graph.getE(src.getKey());
+		if(_graph.getE(src.getKey()) == null) {
 			src.setTag(1);
-			for (edge_data edge_data : edges) {
-				if(isConnected2NodesRe(_graph.getNode(edge_data.getDest()),des))return true;
-			}
+			return false;
 		}
+		
 		Collection<edge_data> edges = _graph.getE(src.getKey());
 		src.setTag(1);
 		for (edge_data edge_data : edges) {
@@ -249,6 +251,10 @@ public class Graph_Algo implements graph_algorithms{
 		}
 		return true;
 	}
+	public graph getGraph() {
+		return this._graph;
+	}
+	
 	public static void main(String[]args) {
 		graph graphConnected= new DGraph();
 		NodeData n1= new NodeData(1,5,10);
@@ -264,6 +270,8 @@ public class Graph_Algo implements graph_algorithms{
 		graphConnected.addNode(n4);
 		graphConnected.addNode(n5);
 		graphConnected.addNode(n5);
+		graphConnected.addNode(n6);
+
 		graphConnected.connect(n1.getKey(), n2.getKey(), 2);
 		graphConnected.connect(n2.getKey(), n3.getKey(), 5);
 		graphConnected.connect(n3.getKey(), n4.getKey(), 2);
@@ -272,33 +280,36 @@ public class Graph_Algo implements graph_algorithms{
 		graphConnected.connect(n4.getKey(), n6.getKey(), 3);
 
 		Graph_Algo testUnit= new Graph_Algo(graphConnected);
-		List<node_data> test= testUnit.shortestPath(n1.getKey(), n5.getKey());
-		List<Integer> keysList= new LinkedList<>();
-		for(int i=0; i<test.size(); i++) {
-			keysList.add(test.get(i).getKey());
-		}
-		System.out.println(""+testUnit.isAllTragetsConnected(keysList));
-		graph newtest= new DGraph();
-		Graph_Algo blabla= new Graph_Algo(newtest);
-		newtest.addNode(n1);
-		newtest.addNode(n2);
-		newtest.addNode(n3);
-		newtest.addNode(n4);
-		newtest.addNode(n5);
-		newtest.connect(n1.getKey(), n2.getKey(), 9);
-		newtest.connect(n4.getKey(), n5.getKey(), 7);
-		List<Integer> testList= new LinkedList<>();
-		testList.add(n1.getKey());
-		testList.add(n2.getKey());
-		testList.add(n3.getKey());
-//		System.out.println(""+blabla.isAllTragetsConnected(testList));
-		List<node_data> list= new LinkedList<>();
-		list.add(n2);
-		list.add(n5);
-		list.add(n6);
+		System.out.println(testUnit.isConnected2Nodes(n1, n4));
+//		System.out.print(graphConnected.getNode(n6.getKey()).getWeight());
+
+//		List<node_data> test= testUnit.shortestPath(n1.getKey(), n5.getKey());
+//		List<Integer> keysList= new LinkedList<>();
+//		for(int i=0; i<test.size(); i++) {
+//			keysList.add(test.get(i).getKey());
+//		}
+//		System.out.println(""+testUnit.isAllTragetsConnected(keysList));
+//		graph newtest= new DGraph();
+//		
+//		newtest.addNode(n1);
+//		newtest.addNode(n2);
+//		newtest.addNode(n3);
+//		newtest.addNode(n4);
+//		newtest.addNode(n5);
+//		newtest.connect(n1.getKey(), n2.getKey(), 9);
+//		newtest.connect(n4.getKey(), n5.getKey(), 7);
+//		List<Integer> testList= new LinkedList<>();
+//		testList.add(n1.getKey());
+//		testList.add(n2.getKey());
+//		testList.add(n3.getKey());
+//		System.out.println(""+testUnit.isAllTragetsConnected(testList));
+//		List<node_data> list= new LinkedList<>();
+//		list.add(n2);
+//		list.add(n5);
+//		list.add(n6);
 //		System.out.println(testUnit.isConnected2Nodes(n1, n6));
 //		System.out.println(testUnit.mostCloseNode(list, n2));
-
+		
 		
 	}
 }
