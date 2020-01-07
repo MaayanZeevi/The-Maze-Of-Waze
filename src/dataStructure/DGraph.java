@@ -78,7 +78,7 @@ public class DGraph implements graph, Serializable{
 
 	@Override
 	public Collection<edge_data> getE(int node_id) {
-		if(!this.verticesMap.containsKey(node_id) || this.verticesMap.get(node_id)==null) {
+		if(!this.edgeMap.containsKey(node_id) || this.edgeMap.get(node_id)==null) {
 			return null;
 		}
 		return this.edgeMap.get(node_id).values();

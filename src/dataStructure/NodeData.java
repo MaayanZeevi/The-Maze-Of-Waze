@@ -76,5 +76,7 @@ public class NodeData implements node_data, Serializable {
 		this.tag = t;
 	}
 	
-	
+	public String toString() {
+		return ""+this.getKey();
+	}
 }
