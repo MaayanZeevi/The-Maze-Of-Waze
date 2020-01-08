@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import algorithms.*;
 import dataStructure.*;
+import gui.graphGUI;
 import utils.*;
 //import gui.*;
 
@@ -56,7 +57,7 @@ class Ex2Test {
 		return ans;
 	}
 	boolean drawGraph(graph g) { 
-		// YOUR GUI graph draw 
+		graphGUI graph= new graphGUI(_graph);
 		return true;
 		
 	}
