@@ -10,7 +10,7 @@ import algorithms.*;
 import dataStructure.*;
 import gui.graphGUI;
 import utils.*;
-//import gui.*;
+import gui.*;
 
 /**
  * EX2 Structure test:
@@ -58,6 +58,8 @@ class Ex2Test {
 	}
 	boolean drawGraph(graph g) { 
 		graphGUI graph= new graphGUI(_graph);
+		graph.setVisible(true);
+
 		return true;
 		
 	}

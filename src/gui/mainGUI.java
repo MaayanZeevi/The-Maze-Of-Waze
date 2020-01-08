@@ -87,4 +87,5 @@ public class mainGUI {
 	
 	graphGUI gui= new graphGUI(g);		
 	gui.setVisible(true);
-}}
+	}
+}
